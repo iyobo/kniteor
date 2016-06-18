@@ -1,6 +1,6 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import {Meteor} from 'meteor/meteor';
+import {Mongo} from 'meteor/mongo';
+import {check} from 'meteor/check';
 
 export const Orders = new Mongo.Collection('orders');
 
@@ -14,12 +14,12 @@ if (Meteor.isServer) {
 }
 Meteor.methods({
 	'orders.insert'(data) {
-		// check(text, String);
+		check(data.spec, Object);
 
-		// Make sure the user is logged in before inserting a task
-		// if (! this.userId) {
-		// 	throw new Meteor.Error('not-authorized');
-		// }
+		/**
+		 * TODO: We must Verify the spec object and quote coming from the client.
+		 * We would make another Call to the C++ API here before finally inserting the data
+		 */
 
 		Orders.insert(data);
 	},
@@ -32,7 +32,7 @@ Meteor.methods({
 		// check(taskId, String);
 		check(setChecked, Boolean);
 
-		Orders.update(taskId, { $set: { checked: setChecked } });
+		Orders.update(taskId, {$set: {checked: setChecked}});
 	},
 	'orders.setPrivate'(taskId, setToPrivate) {
 		// check(taskId, String);
@@ -45,6 +45,6 @@ Meteor.methods({
 			throw new Meteor.Error('not-authorized');
 		}
 
-		Orders.update(taskId, { $set: { private: setToPrivate } });
+		Orders.update(taskId, {$set: {private: setToPrivate}});
 	},
 });
