@@ -6,10 +6,7 @@ import { Template } from 'meteor/templating';
 import { Orders } from '../api/orders.js';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
-
 import './adminpage.html';
-import './order.js';
-
 
 
 Template.adminpage.onCreated(function bodyOnCreated() {
