@@ -1,4 +1,27 @@
 <head>
     <title>simple</title>
-    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet"/>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet"/>
 </head>
+
+<body>
+<header>
+    <h1>Kniteor</h1>
+
+    {{> loginButtons}}
+    <nav>
+        <ul>
+            <li><a href="/">Order Now</a></li>
+            {{#if currentUser}}
+                <li><a href="/admin">List Orders</a></li>
+            {{/if}}
+        </ul>
+    </nav>
+</header>
+
+<template name="App_body">
+    ...
+    {{> Template.dynamic template=main}}
+    ...
+</template>
+
+</body>

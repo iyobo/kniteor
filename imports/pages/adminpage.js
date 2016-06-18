@@ -3,12 +3,14 @@
  */
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { Tasks } from '../api/tasks.js';
+import { Orders } from '../api/orders.js';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
 
-import './body.html';
+import './adminpage.html';
 import './task.js';
+
+
 
 Template.body.onCreated(function bodyOnCreated() {
 	this.state = new ReactiveDict();
@@ -21,13 +23,20 @@ Template.body.helpers({
 		const instance = Template.instance();
 		if (instance.state.get('hideCompleted')) {
 			// If hide completed is checked, filter tasks
-			return Tasks.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
+			return Orders.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
 		}
 		// Otherwise, return all of the tasks
-		return Tasks.find({});
+		return Orders.find({});
 	},
 	incompleteCount() {
-		return Tasks.find({ checked: { $ne: true } }).count();
+		return Orders.find({ checked: { $ne: true } }).count();
+	},
+	specificFormData() {
+		return {
+			id: this._id,
+			other: this.other,
+			hard: 'Lolcats'
+		}
 	},
 });
 

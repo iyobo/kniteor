@@ -1,0 +1,37 @@
+.jqDropZone {
+    background: #f1f1f1;
+    border-radius: 10px;
+    width: 100%;
+    height: 100px;
+    /*line-height: 50px;*/
+    text-align: center;
+    padding: 20px;
+    padding-top: 50px;
+
+    font-weight: bold;
+
+    border: dashed medium #414141;
+}
+.jqDropZone.in {
+    width: 100%;
+    height: 100px;
+    line-height: 200px;
+    font-size: larger;
+}
+.jqDropZone.hover {
+    background: #1EAEDB;
+}
+.jqDropZone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+.money{
+    font-weight: 600;
+    color: #1EAEDB;
+    font-size: 30px;
+}

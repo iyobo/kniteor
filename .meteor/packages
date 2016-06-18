@@ -22,3 +22,6 @@ reactive-dict
 accounts-ui
 accounts-password
 practicalmeteor:mocha
+iron:router
+tomi:upload-server
+tomi:upload-jquery
