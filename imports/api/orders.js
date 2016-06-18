@@ -17,7 +17,7 @@ Meteor.methods({
 		check(data.spec, Object);
 
 		/**
-		 * TODO: We must Verify the spec object and quote coming from the client.
+		 * DESIGN: We must Verify the spec object and quote coming from the client.
 		 * We would make another Call to the C++ API here before finally inserting the data
 		 */
 		if(Meteor.isServer) {
