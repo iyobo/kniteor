@@ -4,25 +4,23 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
-import { Orders } from '../api/orders.js';
+import './order.html';
 
-import './task.html';
-
-Template.task.helpers({
+Template.order.helpers({
 	isOwner() {
 		return this.owner === Meteor.userId();
 	},
 });
 
-Template.task.events({
+Template.order.events({
 	'click .toggle-checked'() {
 		// Set the checked property to the opposite of its current value
-		Meteor.call('tasks.setChecked', this._id, !this.checked);
+		Meteor.call('orders.setChecked', this._id, !this.checked);
 	},
 	'click .delete'() {
-		Meteor.call('tasks.remove', this._id);
+		Meteor.call('orders.remove', this._id);
 	},
 	'click .toggle-private'() {
-		Meteor.call('tasks.setPrivate', this._id, !this.private);
+		Meteor.call('orders.setPrivate', this._id, !this.private);
 	},
 });

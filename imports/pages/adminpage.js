@@ -8,39 +8,27 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 
 import './adminpage.html';
-import './task.js';
+import './order.js';
 
 
 
-Template.body.onCreated(function bodyOnCreated() {
+Template.adminpage.onCreated(function bodyOnCreated() {
 	this.state = new ReactiveDict();
-	Meteor.subscribe('tasks');
+	Meteor.subscribe('orders');
 });
 
 
-Template.body.helpers({
-	tasks() {
+Template.adminpage.helpers({
+	orders() {
 		const instance = Template.instance();
-		if (instance.state.get('hideCompleted')) {
-			// If hide completed is checked, filter tasks
-			return Orders.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
-		}
-		// Otherwise, return all of the tasks
 		return Orders.find({});
 	},
-	incompleteCount() {
-		return Orders.find({ checked: { $ne: true } }).count();
-	},
-	specificFormData() {
-		return {
-			id: this._id,
-			other: this.other,
-			hard: 'Lolcats'
-		}
-	},
+	orderCount() {
+		return Orders.find().count();
+	}
 });
 
-Template.body.events({
+Template.adminpage.events({
 	'submit .new-task'(event) {
 		// Prevent default browser form submit
 		event.preventDefault();

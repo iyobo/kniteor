@@ -8,43 +8,33 @@ export const Orders = new Mongo.Collection('orders');
 
 if (Meteor.isServer) {
 	// This code only runs on the server
-	// Meteor.publish('orders', function ordersPublication() {
-	// 	return Tasks.find({
-	// 		$or: [
-	// 			{ private: { $ne: true } },
-	// 			{ owner: this.userId },
-	// 		],
-	// 	});
-	// });
+	Meteor.publish('orders', function ordersPublication() {
+		return Orders.find();
+	});
 }
 Meteor.methods({
-	'tasks.insert'(text) {
-		check(text, String);
+	'orders.insert'(data) {
+		// check(text, String);
 
 		// Make sure the user is logged in before inserting a task
-		if (! this.userId) {
-			throw new Meteor.Error('not-authorized');
-		}
+		// if (! this.userId) {
+		// 	throw new Meteor.Error('not-authorized');
+		// }
 
-		Orders.insert({
-			text,
-			createdAt: new Date(),
-			owner: this.userId,
-			username: Meteor.users.findOne(this.userId).username,
-		});
+		Orders.insert(data);
 	},
-	'tasks.remove'(taskId) {
+	'orders.remove'(taskId) {
 		// check(taskId, String);
 
 		Orders.remove(taskId);
 	},
-	'tasks.setChecked'(taskId, setChecked) {
+	'orders.setChecked'(taskId, setChecked) {
 		// check(taskId, String);
 		check(setChecked, Boolean);
 
 		Orders.update(taskId, { $set: { checked: setChecked } });
 	},
-	'tasks.setPrivate'(taskId, setToPrivate) {
+	'orders.setPrivate'(taskId, setToPrivate) {
 		// check(taskId, String);
 		check(setToPrivate, Boolean);
 

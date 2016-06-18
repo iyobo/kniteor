@@ -1,7 +1,32 @@
 <template name="adminpage">
     <h3>Admin :: Confirmed Orders</h3>
     <div class="container">
-        Empty
+
+        <table class="u-full-width">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Quote</th>
+                <th>Spec</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {{#each orders}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.phone}}</td>
+                    <td>{{this.spec.quote.currency}}{{this.spec.quote.value}}</td>
+                    <td><a href="{{this.spec.url}}" target="_blank">View</a></td>
+                </tr>
+            {{/each}}
+
+            </tbody>
+        </table>
+
 
     </div>
 

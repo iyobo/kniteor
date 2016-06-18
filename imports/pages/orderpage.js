@@ -8,7 +8,10 @@ import {ReactiveDict} from 'meteor/reactive-dict';
 
 import './orderpage.css';
 import './orderpage.html';
-import './task.js';
+
+function compileForm(){
+	return {name: $('#order_name').val(), email: $('#order_email').val(), phone: $('#order_phone').val()};
+}
 
 Template.orderpage.onCreated(function() {
 	this.state = new ReactiveDict();
@@ -41,12 +44,11 @@ Template.orderpage.helpers({
 			return info;
 		}
 	},
+
 	uploadCallbacks:function() {
 		const instance = Template.instance();
 		return {
-			formData: function () {
-				return {name: $('#order_name').val(), email: $('#order_email').val(), phone: $('#order_phone').val()};
-			},
+			formData: compileForm,
 			finished: function (index, fileInfo, context) {
 				console.log(fileInfo)
 				instance.state.set("activeFile",fileInfo);
@@ -65,17 +67,19 @@ Template.orderpage.events({
 		const text = target.text.value;
 
 		// Insert a task into the collection
-		// Insert a task into the collection
 		Meteor.call('tasks.insert', text);
 
 		// Clear form
 		target.text.value = '';
 	},
-	'change .hide-completed input'(event, instance) {
-		instance.state.set('hideCompleted', event.target.checked);
-	},
 	'submit #orderform'(event, instance) {
-		instance.state.set('hideCompleted', event.target.checked);
+		event.preventDefault();
+
+		var formdata = compileForm();
+		formdata.spec= instance.state.get('activeFile');
+		console.log("submitting",formdata);
+
+		Meteor.call('orders.insert',formdata);
 	},
 
 });

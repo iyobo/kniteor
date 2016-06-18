@@ -8,6 +8,11 @@ nav ul li{
     float: right;
 }
 
+#login-buttons .login-button{
+    background-color: #1EAEDB;
+    border-color: #1EAEDB;
+}
+
 #login-dropdown-list{
     top: 0px;
     left: auto;

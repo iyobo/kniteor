@@ -10,28 +10,31 @@
             <div class="row">
                 <div class="six columns">
                     <div class="twelve columns">
-                        <label for="order_name">Your Name</label>
-                        <input class="u-full-width" type="text" name="name" id="order_name">
+                        <label for="order_name">Your Name*</label>
+                        <input class="u-full-width" type="text" name="name" id="order_name" required>
                     </div>
 
                     <div class="twelve columns">
-                        <label for="order_email">Email</label>
-                        <input class="u-full-width" type="email" name="email" id="order_email">
+                        <label for="order_email">Email*</label>
+                        <input class="u-full-width" type="email" name="email" id="order_email" required>
                     </div>
 
                     <div class="twelve columns">
-                        <label for="order_phone">Phone</label>
-                        <input class="u-full-width" type="text" name="phone" id="order_phone">
+                        <label for="order_phone">Phone*</label>
+                        <input class="u-full-width" type="text" name="phone" id="order_phone" required>
                     </div>
                 </div>
 
                 <div class="six columns">
-
+                    <!--{{#if canUpload}}-->
                         {{> dropzone multiple=false callbacks=uploadCallbacks }}
 
-                        <p><label>File:</label> {{activeFile.name}}</p>
-                        <p><label>Estimate:</label> <span class="money">{{activeFile.quote.currency}}{{activeFile.quote.value}}</span></p>
-
+                        <p><label>File:</label> {{#if activeFile}}{{activeFile.name}}{{else}} No Spec uploaded
+                            yet{{/if}}</p>
+                        <p><label>Estimate:</label> <span
+                                class="money">{{#if activeFile}}{{activeFile.quote.currency}}{{activeFile.quote.value}}{{else}}
+                            $0.00 {{/if}}</span></p>
+                    <!--{{/if}}-->
                 </div>
             </div>
             <div class="row">
