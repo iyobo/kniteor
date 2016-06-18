@@ -20,31 +20,12 @@ Meteor.methods({
 		 * TODO: We must Verify the spec object and quote coming from the client.
 		 * We would make another Call to the C++ API here before finally inserting the data
 		 */
-
-		Orders.insert(data);
-	},
-	'orders.remove'(taskId) {
-		// check(taskId, String);
-
-		Orders.remove(taskId);
-	},
-	'orders.setChecked'(taskId, setChecked) {
-		// check(taskId, String);
-		check(setChecked, Boolean);
-
-		Orders.update(taskId, {$set: {checked: setChecked}});
-	},
-	'orders.setPrivate'(taskId, setToPrivate) {
-		// check(taskId, String);
-		check(setToPrivate, Boolean);
-
-		const task = Orders.findOne(taskId);
-
-		// Make sure only the task owner can make a task private
-		if (task.owner !== this.userId) {
-			throw new Meteor.Error('not-authorized');
+		if(Meteor.isServer) {
+			Meteor.kniteor.getEstimate(data.spec,function(realEstimate){
+				data.spec.quote.value = realEstimate;
+				Orders.insert(data);
+			});
 		}
 
-		Orders.update(taskId, {$set: {private: setToPrivate}});
-	},
+	}
 });

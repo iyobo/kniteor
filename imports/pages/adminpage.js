@@ -9,6 +9,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import './adminpage.html';
 
 
+
 Template.adminpage.onCreated(function bodyOnCreated() {
 	this.state = new ReactiveDict();
 	Meteor.subscribe('orders');

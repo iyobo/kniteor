@@ -2,8 +2,15 @@ import { Meteor } from 'meteor/meteor';
 import '../imports/api/orders.js';
 
 
-
 Meteor.startup(() => {
+
+	Meteor.kniteor = {}
+	Meteor.kniteor.getEstimate=function(fileInfo, cb){
+		//TODO: This is where the call is made to the C++ external module
+		var mockEstimate = ((Math.random()+1)*100).toFixed(2);
+		cb(mockEstimate);
+	};
+
   // code to run on server at startup
 	UploadServer.init({
 		tmpDir: process.env.PWD + '/.uploads/tmp',
@@ -13,12 +20,12 @@ Meteor.startup(() => {
 			return 'tmp/';
 		},
 		finished(fileInfo, formFields) {
-			// console.log("uploaded",fileInfo, formFields);
+			Meteor.kniteor.getEstimate(fileInfo,function(estimate){
+				fileInfo.quote={currency:"$", value: estimate};
+			});
 
-			//TODO: This is where the call is made to the C++ external module
-			var mockEstimate = ((Math.random()+1)*300).toFixed(2);
-
-			fileInfo.quote={currency:"$", value: mockEstimate};
 		}
 	});
+
 });
+

@@ -17,4 +17,6 @@ Router.route('/', function () {
 Router.route('/admin', function () {
 	this.render('adminpage');
 });
-
+Router.route('/thanks', function () {
+	this.render('thanks');
+});

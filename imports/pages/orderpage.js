@@ -8,6 +8,7 @@ import {ReactiveDict} from 'meteor/reactive-dict';
 
 import './orderpage.css';
 import './orderpage.html';
+import './thanks.html';
 
 function compileForm(){
 	return {name: $('#order_name').val(), email: $('#order_email').val(), phone: $('#order_phone').val()};
@@ -19,7 +20,7 @@ Template.orderpage.onCreated(function() {
 
 });
 Template.orderpage.onRendered(function(){
-	$('.jqDropZone').html('Please drag the JSON spec file you wish to estimate here');
+	$('.jqDropZone').html('Drag & drop the JSON spec file you wish to estimate here');
 })
 
 Template.orderpage.helpers({
@@ -51,8 +52,10 @@ Template.orderpage.events({
 		var formdata = compileForm();
 		formdata.spec= instance.state.get('activeFile');
 		console.log("submitting",formdata);
-
+		
 		Meteor.call('orders.insert',formdata);
+
+		Router.go('/thanks');
 	},
 
 });
