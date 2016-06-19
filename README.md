@@ -18,7 +18,7 @@ See 'Estimation Design Explanation' for how this would be solved if not a mock.
 ## Estimation Design Explanation
 In a real world implementation, the preferred way of interfacing meteor/nodejs with C++ libraries is to use node-ff1.
 Assuming the function in the C++ library is of the form:
-`int getEstimate(String json)`
+`int getEstimate(char *json)`
 
 We would essentially be doing this on the Node/Meteor end:
 
@@ -28,7 +28,7 @@ var ffi = require('ffi')
 var ref = require('ref')
 
 var libQuote = ffi.Library('<PATH_TO_CPP_LIB>', {
-  'getEstimate': [ 'int', [ 'String'] ]
+  'getEstimate': [ 'int', [ 'string'] ]
 })
 ```
 
@@ -42,6 +42,9 @@ fs.readFile('<PATH_TO_JSON_FILE>', 'utf8', function (err,json) {
   }
   
   libQuote.getEstimate.async(json, function(err, realEstimate){
+    if (err) {
+      return console.err(err);
+    }
     result.quote.value = realEstimate;
   }); 
 });
